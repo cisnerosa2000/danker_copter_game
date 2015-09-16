@@ -3,6 +3,7 @@ import math
 import random
 import subprocess
 from multiprocessing import Process
+import inspect
 
 root = Tk()
 root.geometry("1366x768+11+0")
@@ -126,9 +127,7 @@ class Junior(object):
             
             
             
-            def me4sad2():
-                sadsong = "/Users/cisnerosa/documents/dcg/dank_sanic.mp3"
-                awww = subprocess.call(["afplay", sadsong])
+            
             def go():
                 cannon.can_spawn = True
                 cannon.round = True
@@ -142,10 +141,8 @@ class Junior(object):
                 canvas.delete(rip_in_spaghetti)
                 readym8 = canvas.create_text(673,284,text="Round 3!",font=("Courier","30"))
                 root.after(2000,fin)
-            pp = Process(target=me4sad2)
-            pp.start()
             rip_in_spaghetti = canvas.create_text(672,284,text="Junebug,\nrip in spagetti,\nnvr 4getti :(",font=("Courier","30"))
-            root.after(22000,settrue)
+            root.after(5000,settrue)
             
             
             
@@ -299,7 +296,7 @@ class Enemy(object):
     def __init__(self):
         
         def clank():
-            cannon_audio_file = "/Users/cisnerosa/documents/dcg/thunk.wav"
+            cannon_audio_file = level.location.replace("MLG.py","thunk.wav")
             boom = subprocess.call(["afplay", cannon_audio_file])
         clankclank = Process(target=clank)
         clankclank.start()
@@ -321,7 +318,7 @@ class Enemy(object):
         if cannon.health >= 10:
             cannon.health -= 10
         def hitsound():
-            audio_file = "/Users/cisnerosa/documents/dcg/blip.mp3"
+            audio_file = level.location.replace("MLG.py","blip.mp3")
             play = subprocess.call(["afplay", audio_file])
         hitsoundp = Process(target=hitsound)
         hitsoundp.start()
@@ -372,7 +369,7 @@ class Level(object):
         
         self.cannon_base = canvas.create_image(672,580,image=self.gimg,tags="cannon")
         self.ground = canvas.create_rectangle(0,580,1344,700,fill="brown")
-        self.soundtrack()
+        
         
         self.start_text = canvas.create_text(672,200,text="Press S to Start: \n -Click to fire. \n -Shoot Thomas or die! Each Thomas deals 10 damage! \n -Survive as long as you can! \n -Your score is shown in the gray circle. \n -Your health is the green bar, you've got 100 HP. \n -Shoot powerups for an advantage. \n -Use powerups at any time with the space bar. \nGood Luck!",font=("Courier","30") )
         self.begun = False
@@ -380,11 +377,14 @@ class Level(object):
         flash_process = Process(target=self.screen_loop)
         flash_process.start()
         
+        self.location = inspect.stack()[1][1]
+        print self.location.replace("MLG.py","dank_sanic.mp3")
+        self.soundtrack()
         
     def soundtrack(self):
         def tunes():
             
-            cannon_audio_file = "/Users/cisnerosa/documents/dcg/soundtrack/day %s.mp3" % random.randint(1,29)
+            cannon_audio_file = self.location.replace("MLG.py","soundtrack/day %s.mp3" % random.randint(1,29))
             boom = subprocess.call(["afplay", cannon_audio_file])
             tunes()
             
@@ -495,7 +495,7 @@ class Cannon(object):
             self.ball_list.append(cannonball)
         
             def boomboom():
-                cannon_audio_file = "/Users/cisnerosa/documents/dcg/cannon_shot.mp3"
+                cannon_audio_file = level.location.replace("MLG.py","cannon_shot.mp3")
                 bang = subprocess.call(["afplay", cannon_audio_file])
             shot_process = Process(target=boomboom)
             shot_process.start()
